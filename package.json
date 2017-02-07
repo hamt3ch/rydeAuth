@@ -4,11 +4,27 @@
   "description": "Auth service for uRyde",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
+    "build": "babel src -s -D -d dist --presets es2015,stage-0",
+    "start": "npm run build && micro dist"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "micro": "^7.0.3"
+    "es6-micro-loader": "^0.2.1",
+    "micro": "^7.0.3",
+    "nodemon": "^1.11.0"
+  },
+  "devDependencies": {
+    "ava": "^0.18.0",
+    "babel-cli": "^6.22.2",
+    "babel-core": "^6.9.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "eslint": "^3.1.1",
+    "eslint-config-airbnb": "^14.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "nodemon": "^1.9.2",
+    "supertest": "^3.0.0"
   }
 }
