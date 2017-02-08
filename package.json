@@ -15,7 +15,6 @@
     "cors": "^2.8.1",
     "es6-micro-loader": "^0.2.1",
     "express": "^4.14.1",
-    "micro": "^7.0.3",
     "morgan": "^1.8.0",
     "nodemon": "^1.11.0"
   },
