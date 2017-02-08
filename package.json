@@ -6,13 +6,17 @@
   "scripts": {
     "dev": "nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
     "build": "babel src -s -D -d dist --presets es2015,stage-0",
-    "start": "npm run build && micro dist"
+    "start": "npm run build && node dist"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.16.0",
+    "cors": "^2.8.1",
     "es6-micro-loader": "^0.2.1",
+    "express": "^4.14.1",
     "micro": "^7.0.3",
+    "morgan": "^1.8.0",
     "nodemon": "^1.11.0"
   },
   "devDependencies": {
