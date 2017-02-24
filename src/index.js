@@ -24,7 +24,7 @@ app.use(cors({ exposedHeaders: config.corsHeaders }));
 app.use(bodyParser.json({ limit: config.bodyLimit }));
 
 // passport
-app.use(expressSession( { secret: 'mySecretKey' }));
+app.use(expressSession({ secret: 'mySecretKey' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -40,17 +40,14 @@ passport.use('local', new LocalStrategy(
     // find an existent user
     // if not existent, create user
     // if existent, login user
-    User.findOne({ username }, (err, usr) => {
+    User.findOne({ username, password }, (err, user) => {
       if (err) {
         return done(err);
       }
-      if (!usr) {
-        return done(null, false, { message: 'User does not exist.' });
+      if (!user) {
+        return done(null, false, { message: 'User does not exist or incorrect password' });
       }
-      if (!usr.password === password) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, usr);
+      return done(null, user);
     });
   },
 ));
