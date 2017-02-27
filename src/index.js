@@ -36,11 +36,12 @@ app.server.listen(process.env.PORT || config.port);
 const LocalStrategy = require('passport-local').Strategy;
 
 passport.use('local', new LocalStrategy(
-  (username, password, done) => {
+  { usernameField: 'email' },
+  (email, password, done) => {
     // find an existent user
     // if not existent, create user
     // if existent, login user
-    User.findOne({ username, password }, (err, user) => {
+    User.findOne({ email, password }, (err, user) => {
       if (err) {
         return done(err);
       }

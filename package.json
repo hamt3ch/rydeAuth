@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
     "build": "babel src -s -D -d dist --presets es2015,stage-0",
-    "start": "npm run build && node dist"
+    "start": "npm run build && node dist",
+    "deploy": "now --docker"
   },
   "author": "",
   "license": "ISC",
