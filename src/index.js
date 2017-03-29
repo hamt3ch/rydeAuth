@@ -35,43 +35,37 @@ app.server.listen(process.env.PORT || config.port);
 */
 const LocalStrategy = require('passport-local').Strategy;
 
-passport.use('local', new LocalStrategy(
-  { usernameField: 'email' },
-  (email, password, done) => {
+passport.use('local', new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
     // find an existent user
     // if not existent, create user
     // if existent, login user
-    User.findOne({ email, password }, (err, user) => {
-      if (err) {
-        return done(err);
-      }
-      if (!user) {
-        return done(null, false, { message: 'User does not exist or incorrect password' });
-      }
-      return done(null, user);
+  User.findOne({ email }, (err, user) => {
+    if (err) return done(err);
+    if (!user) return done(null, false, { message: 'User does not exist.' });
+    const hash = user.password;
+    user.validPassword(password, hash, (error, isMatch) => {
+      if (error) return done(error);
+      if (!isMatch) return done(null, false, { message: 'Invalid email/password combination.' });
+      done(null, user);
+      return true;
     });
-  },
-));
+    return false;
+  });
+}));
 
-passport.serializeUser((user, done) => {
-  return done(null, user);
+passport.serializeUser((user, done) => done(null, user));
+
+passport.deserializeUser((id, done) => done(null, id));
+
+app.post('/login', passport.authenticate('local'), (req, res) => {
+  // If this function gets called, authentication was successful.
+  // `req.user` contains the authenticated user.
+  //  return access/bearer token w/ user info
+  res.json(req.user);
 });
-
-passport.deserializeUser((id, done) => {
-  return done(null, id);
-});
-
-app.post('/login',
-  passport.authenticate('local'),
-    (req, res) => {
-      // If this function gets called, authentication was successful.
-      // `req.user` contains the authenticated user.
-      //  return access/bearer token w/ user info
-      res.json(req.user);
-    });
 
 // connect to db
-initializeDb((db) => {
+initializeDb(() => {
   app.server.listen(process.env.PORT || config.port);
   console.log(`Started on port ${app.server.address().port}`);
 });
