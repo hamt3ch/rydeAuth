@@ -8,8 +8,8 @@
     "build": "babel src -s -D -d dist --presets es2015,stage-0",
     "start": "npm run build && node dist",
     "deploy": "now --docker",
-    "test": "ava tests/*.js --verbose",
-    "test:watch": "ava tests/*.js --verbose --watch"
+    "test": "ava test/*.js --verbose",
+    "test:watch": "ava test/*.js --verbose --watch"
   },
   "author": "",
   "license": "ISC",
