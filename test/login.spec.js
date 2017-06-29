@@ -8,12 +8,12 @@ test('POST /login:Success', async (t) => {
   const res = await request(server)
               .post('/login')
               .send({
-                email: 'ps@d.com',
-                password: 'pass',
+                email: 'auth@test.com',
+                password: 'test',
               });
-  t.is(res.body.first_name, 'PS');
-  t.is(res.body.last_name, 'D');
-  t.is(res.body.email, 'ps@d.com');
+  t.is(res.body.first_name, 'Auth');
+  t.is(res.body.last_name, 'Test');
+  t.is(res.body.email, 'auth@test.com');
   t.is(res.status, 200);
 });
 
@@ -30,8 +30,8 @@ test('POST /login:Fail - Invalid email/password combination', async (t) => {
   const res = await request(server)
               .post('/login')
               .send({
-                email: 'ps@d.com',
-                password: 'test',
+                email: 'auth@test.com',
+                password: 'auth',
               });
   t.is(res.status, 401); // unauthorized
 });
