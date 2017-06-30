@@ -20,10 +20,10 @@ COPY . /www
 WORKDIR /www
 
 # set your port
-ENV PORT 8080
+ENV PORT 9999
 
 # expose the port to outside world
-EXPOSE  8080
+EXPOSE  9999
 
 # start command as per package.json
 CMD ["yarn", "start"]
