@@ -8,7 +8,6 @@ RUN apk add --update nodejs bash git
 
 # Install yarn
 RUN npm install yarn -g
-RUN yarn install
 
 # Install app dependencies
 COPY package.json /www/package.json
@@ -27,4 +26,4 @@ ENV PORT 9999
 EXPOSE  9999
 
 # start command as per package.json
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
